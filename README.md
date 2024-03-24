@@ -3,7 +3,7 @@ Code for model, simulations and analysis of classical eyeblink conditioning with
 
 
 # Required software:
-- NEST simulator v 2.18
+- NEST simulator <a href="https://zenodo.org/records/2605422">v 2.18.0</a>
 - <a href="https://github.com/dbbs-lab/cereb-nest">cereb-nest</a>  NEST extension module
 
 # Repository content:
