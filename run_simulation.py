@@ -137,15 +137,17 @@ def simulate_network(plasticity_parameters, path_saving_files):
         post_neuron = sim_param.param_connections[conn]['receiver']
         if post_neuron in pos.keys():
             # Z+ conns
-            conn_matrix[:,0] = conn_matrix[:,0] - start_scaffold_id[pre_neuron] + neuron_models[pre_neuron][0]
-            conn_matrix[:,1] = conn_matrix[:,1] - start_scaffold_id[post_neuron] + neuron_models[post_neuron][0]
-            conn_matrix = conn_matrix.astype(int)
-            plastic_conn, weight_recorders = sim_functions.create_connections(conn, conn_matrix, neuron_models, sim_param.param_connections[conn]['pos'], plastic_conn, weight_rec, vt, WEIGHT_RECORDING)
+            conn_matrix_pos = conn_matrix[np.isin(conn_matrix[:, 1], pos), :]
+            conn_matrix_pos[:,0] = conn_matrix_pos[:,0] - start_scaffold_id[pre_neuron] + neuron_models[pre_neuron][0]
+            conn_matrix_pos[:,1] = conn_matrix_pos[:,1] - start_scaffold_id[post_neuron] + neuron_models[post_neuron][0]
+            conn_matrix_pos = conn_matrix_pos.astype(int)
+            plastic_conn, weight_recorders = sim_functions.create_connections(conn, conn_matrix_pos, neuron_models, sim_param.param_connections[conn]['pos'], plastic_conn, weight_rec, vt, WEIGHT_RECORDING)
             # Z- conns
-            conn_matrix[:,0] = conn_matrix[:,0] - start_scaffold_id[pre_neuron] + neuron_models[pre_neuron][0] + len(pos[cell_name])
-            conn_matrix[:,1] = conn_matrix[:,1] - start_scaffold_id[post_neuron] + neuron_models[post_neuron][0] + len(pos[cell_name])
-            conn_matrix = conn_matrix.astype(int)
-            plastic_conn, weight_recorders = sim_functions.create_connections(conn, conn_matrix, neuron_models, sim_param.param_connections[conn]['neg'], plastic_conn, weight_rec, vt, WEIGHT_RECORDING)
+            conn_matrix_neg = conn_matrix[np.isin(conn_matrix[:, 1], neg), :]
+            conn_matrix_neg[:,0] = conn_matrix_neg[:,0] - start_scaffold_id[pre_neuron] + neuron_models[pre_neuron][0] + len(pos[cell_name])
+            conn_matrix_neg[:,1] = conn_matrix_neg[:,1] - start_scaffold_id[post_neuron] + neuron_models[post_neuron][0] + len(pos[cell_name])
+            conn_matrix_neg = conn_matrix_neg.astype(int)
+            plastic_conn, weight_recorders = sim_functions.create_connections(conn, conn_matrix_neg, neuron_models, sim_param.param_connections[conn]['neg'], plastic_conn, weight_rec, vt, WEIGHT_RECORDING)
         else:
             conn_matrix[:,0] = conn_matrix[:,0] - start_scaffold_id[pre_neuron] + neuron_models[pre_neuron][0]
             conn_matrix[:,1] = conn_matrix[:,1] - start_scaffold_id[post_neuron] + neuron_models[post_neuron][0]
