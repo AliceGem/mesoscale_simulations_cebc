@@ -1036,7 +1036,7 @@
           "synapse_model": "static_synapse",
           "teaching": "purkinje_to_dcn_glut_large",
           "connection": {
-            "weight": 0.3537187500000001,
+            "weight": 0.55371875,
             "delay": 4.0
           },
           "synapse": {
